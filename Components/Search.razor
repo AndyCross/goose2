@@ -1,0 +1,50 @@
+@using goose2s.Services
+@using goose2s.State
+@using goose2s.Models
+@inject SearchService search
+
+
+@code {
+    [CascadingParameter]
+    private SpotifyStateProvider SpotifyStateProvider { get; set; }
+    private SearchResults results { get; set; }
+    private async Task SearchChanged(ChangeEventArgs e)
+    {
+        results = await search.SearchTrack(e.Value.ToString(), SpotifyStateProvider.CurrentContext.access_token);
+    }
+}
+
+<div>
+    <input type="text" @onchange="SearchChanged" />
+</div>
+
+@if (results == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Artist</th>
+                <th>Popularity</th>
+            </tr>
+        </thead>
+        <tbody>            
+    @foreach (var result in results.tracks.items)
+    {
+            <tr>
+                <td><img src="@result.album?.images.OrderBy(i=>i.width).First().url" /></td>
+                <td>@result.name</td>
+                <td>@result.artists[0].name</td>  
+                <td>@result.popularity</td>      
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
+}

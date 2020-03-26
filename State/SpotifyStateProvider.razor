@@ -1,0 +1,34 @@
+@using Microsoft.AspNetCore.ProtectedBrowserStorage
+@namespace goose2s.State
+@inject ProtectedSessionStorage ProtectedSessionStore
+
+@if (_hasLoaded)
+{
+    <CascadingValue Value="@this">
+        @ChildContent
+    </CascadingValue>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    private bool _hasLoaded;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    public SpotifyAuthResponse CurrentContext { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentContext = await ProtectedSessionStore.GetAsync<SpotifyAuthResponse>("auth");
+        _hasLoaded = true;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await ProtectedSessionStore.SetAsync("auth", CurrentContext);
+    }
+}

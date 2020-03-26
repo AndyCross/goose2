@@ -1,0 +1,42 @@
+﻿@page "/"
+@using goose2s.State
+@using goose2s.Services
+@inject NavigationManager navManager
+@inject PlaybackService playback
+
+@code {    
+    [CascadingParameter]
+    private SpotifyStateProvider SpotifyStateProvider { get; set; }
+
+    private string callbackUri = "";
+
+    protected override async Task OnInitializedAsync() {
+        var honker = AuthContants.GetAuthKeys();
+        callbackUri = QueryHelpers.AddQueryString("https://accounts.spotify.com/authorize", honker);
+    } 
+
+    private async Task Creep(MouseEventArgs e) {
+        await playback.Play("7zlz2IQA9D08HII7LUPrvX", SpotifyStateProvider.CurrentContext.access_token);
+    }
+    private async Task Croop(MouseEventArgs e) {
+        await playback.Seek(30000, SpotifyStateProvider.CurrentContext.access_token);
+    }
+}
+
+@if (SpotifyStateProvider.CurrentContext == null || !SpotifyStateProvider.CurrentContext.Success)
+{
+    <h1>You gotta log in foolz</h1>
+    <p>Honk honk!</p>
+    <a href="@callbackUri">Join the formation</a>
+}
+else {
+    <h1>Hello, world!</h1>
+    <button class="btn btn-primary" @onclick="Creep">
+        HONK
+    </button>
+    <button class="btn btn-primary" @onclick="Croop">
+        HISS
+    </button>
+}
+
+<goose2s.Components.Search></goose2s.Components.Search>

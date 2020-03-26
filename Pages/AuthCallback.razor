@@ -1,0 +1,58 @@
+@page "/auth/callback"
+@using goose2s.State
+@inject NavigationManager navManager
+
+<div>Logging in, please wait ... flap</div>
+<div style="display:none">
+    <div>
+        authocde is @authCode
+    </div>
+    <div>
+        state is @state
+    </div>
+    @if (authResponse != null && authResponse.Success) {
+    <div>
+        Auth Resp is @authResponse.access_token
+    </div>
+    <div>
+    Expires in  @authResponse.expires_in
+    </div>
+    }
+    @if (authResponse != null && !authResponse.Success) {
+        <div> 
+            Buggery refresh fool??? You can only use that damn code one time to honk a flapping token
+        </div>
+    }
+</div>
+
+
+@code {
+    [CascadingParameter]
+    private SpotifyStateProvider SpotifyStateProvider { get; set; }
+
+    private Uri uri = new Uri("http://idiots");
+    private string authCode = "";
+    private string state = "";
+    private SpotifyAuthResponse authResponse = null;
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) {
+        //should have some honky time with the request!
+            uri = navManager.ToAbsoluteUri(navManager.Uri); //you can use IURIHelper for older versions
+
+            var gosling = QueryHelpers.ParseQuery(uri.Query);
+            authCode = gosling["code"];
+            state = gosling["state"];
+            
+            authResponse = await AuthActions.GetToken(authCode);
+            StateHasChanged();
+            authResponse.state = state;
+
+            SpotifyStateProvider.CurrentContext = authResponse;
+            await SpotifyStateProvider.SaveChangesAsync();
+
+            navManager.NavigateTo("/");
+        }
+    }
+}
