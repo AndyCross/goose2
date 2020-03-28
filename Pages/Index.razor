@@ -10,7 +10,7 @@
 
     private string callbackUri = "";
 
-    protected override async Task OnInitializedAsync() {
+    protected override void OnInitialized() {
         var honker = AuthContants.GetAuthKeys();
         callbackUri = QueryHelpers.AddQueryString("https://accounts.spotify.com/authorize", honker);
     } 
@@ -20,6 +20,10 @@
     }
     private async Task Croop(MouseEventArgs e) {
         await playback.Seek(30000, SpotifyStateProvider.CurrentContext.access_token);
+    }
+
+    private void Honk(Models.QueueItem item) {
+        playback.Play(item.TrackId, SpotifyStateProvider.CurrentContext.access_token).Wait();
     }
 }
 
@@ -39,4 +43,8 @@ else {
     </button>
 }
 
+<h1>Queue</h1>
+<goose2s.Components.Queue TrackChanged="Honk"></goose2s.Components.Queue>
+
+<h1>Search</h1>
 <goose2s.Components.Search></goose2s.Components.Search>

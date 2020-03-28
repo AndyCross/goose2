@@ -2,6 +2,7 @@
 @using goose2s.State
 @using goose2s.Models
 @inject SearchService search
+@inject QueueService queue
 
 
 @code {
@@ -11,6 +12,9 @@
     private async Task SearchChanged(ChangeEventArgs e)
     {
         results = await search.SearchTrack(e.Value.ToString(), SpotifyStateProvider.CurrentContext.access_token);
+    }
+    private async Task Add(MouseEventArgs e, SpotifyItem item) {
+        await queue.Enqueue("static", item);
     }
 }
 
@@ -25,9 +29,10 @@
 else
 {
 <div>
-    <table>
+    <table class="core">
         <thead>
             <tr>
+                <th>...</th>
                 <th>Image</th>
                 <th>Name</th>
                 <th>Artist</th>
@@ -38,10 +43,17 @@ else
     @foreach (var result in results.tracks.items)
     {
             <tr>
+                <td><button @onclick="@(e => Add(e, result))">+</button></td>
                 <td><img src="@result.album?.images.OrderBy(i=>i.width).First().url" /></td>
                 <td>@result.name</td>
                 <td>@result.artists[0].name</td>  
-                <td>@result.popularity</td>      
+                <td>
+                    <table width="100%" class="slim">
+                        <tr>
+                            <td width="@(result.popularity)%" style="background-color:#6f42c1"></td>
+                            <td width="@(100-result.popularity)%" style="background-color:#eee"></td>
+                        </tr>
+                    </table></td>      
             </tr>
     }
         </tbody>

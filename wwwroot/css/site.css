@@ -46,8 +46,11 @@ app {
     text-overflow: ellipsis;
 }
 
-table thead tr th, table tbody tr td {
+ table.core thead tr th, table.core tbody tr td {
     padding: 8px 16px 8px 24px;
+}
+table.slim thead tr th, table.slim tbody tr td {
+    padding: 0px;
 }
 table thead {
     background-image: linear-gradient(90deg, rgb(5, 39, 103) 0%, #3a0647 70%);

@@ -7,7 +7,7 @@ namespace goose2s.Models {
     public class Tracks
     {
         public string href { get; set; }
-        public Item[] items { get; set; }
+        public SpotifyItem[] items { get; set; }
         public int limit { get; set; }
         public string next { get; set; }
         public int offset { get; set; }
@@ -15,7 +15,7 @@ namespace goose2s.Models {
         public int total { get; set; }
     }
 
-    public class Item
+    public class SpotifyItem
     {
         public Album album { get; set; }
         public Artist[] artists { get; set; }
