@@ -6,7 +6,7 @@ namespace goose2s.Services
 {
     public class TableProvider
     {
-        public CloudStorageAccount CreateStorageAccountFromConnectionString(string storageConnectionString)
+        private CloudStorageAccount CreateStorageAccountFromConnectionString(string storageConnectionString)
         {
             CloudStorageAccount storageAccount;
             try

@@ -7,19 +7,14 @@ using System;
 
 namespace goose2s.Services {
     public class QueueService {
-        private readonly TableProvider tableProvider;
-        private CloudTable _table;
+        private QueueItem[] _queue = null;
 
-        public QueueService(TableProvider tableProvider)
+        public QueueService()
         {
-            this.tableProvider = tableProvider;
+            this._queue = new QueueItem[0];
         }
 
         public async Task Enqueue(string flock, SpotifyItem track) {
-            if (_table == null) {
-                _table = await tableProvider.CreateTableAsync("queue");
-            }
-
             var entity = new QueueItem(flock, DateTime.UtcNow) 
             {
                 ArtistName = string.Join(", ", track.artists.Select(a=>a.name)),
@@ -31,24 +26,18 @@ namespace goose2s.Services {
                 Votes = 0
             };
 
-            await tableProvider.InsertOrMergeEntityAsync<QueueItem>(_table, entity);
-
+            lock (this._queue) {
+                var q =  new List<QueueItem>(_queue);
+                q.Add(entity);
+                this._queue = q.ToArray();
+            }
         }
 
         public async Task<QueueItem[]> GetQueue(string flock) {
-            if (_table == null) {
-                _table = await tableProvider.CreateTableAsync("queue");
-            }
-
-            var query =  new TableQuery<QueueItem>()
-                    .Where(
-                        TableQuery.CombineFilters(
-                            TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, flock),
-                            TableOperators.And,
-                            TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.GreaterThan, DateTime.UtcNow.Ticks.ToString())
-                        )).OrderBy("Votes");
-
-           return _table.ExecuteQuery(query).ToArray();
+            return _queue
+                .Where(qi=> qi.PartitionKey == flock && string.Compare(qi.RowKey, DateTime.UtcNow.Ticks.ToString()) > 0)
+                .ToArray();
+           
         } 
     }
 }
