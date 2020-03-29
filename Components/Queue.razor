@@ -22,7 +22,7 @@
                 results = await queue.GetQueue("static");
                 this.StateHasChanged();
             });
-        }), null, 1000, 1000);
+        }), null, 168, 168);
     }
     private void Yield(MouseEventArgs eventArgs, QueueItem item) {
         TrackChanged?.Invoke(item);

@@ -18,16 +18,23 @@
     }
 }
 
+
+@if (SpotifyStateProvider.CurrentContext == null || !SpotifyStateProvider.CurrentContext.Success)
+{
+    <p><em>Not logged in</em></p>
+}
+else if (results == null) 
+{
 <div>
     <input type="text" @onchange="SearchChanged" />
 </div>
-
-@if (results == null)
-{
-    <p><em>Loading...</em></p>
+    <p><em>No results</em></p>
 }
 else
 {
+<div>
+    <input type="text" @onchange="SearchChanged" />
+</div>
 <div>
     <table class="core">
         <thead>
