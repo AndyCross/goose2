@@ -15,21 +15,29 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var resultT = await queue.GetQueue("static", -1L);
-        sequenceNumber = resultT.Item1;
-        results = resultT.Item2;
-
-        var timer = new Timer(new TimerCallback(async _ =>
+        if (firstRender) 
         {
-            await InvokeAsync(async () => {
-                var resultsT = await queue.GetQueue("static", sequenceNumber);
-                if (resultsT.Item1 != long.MinValue) {
-                    results = resultsT.Item2;
-                    sequenceNumber = resultsT.Item1;
-                    this.StateHasChanged();
-                }
-            });
-        }), null, 168, 168);
+            var resultT = await queue.GetQueue("static", -1L);
+            sequenceNumber = resultT.Item1;
+            results = resultT.Item2;
+
+            var timer = new Timer(new TimerCallback(async _ =>
+            {
+                await InvokeAsync(() => {
+                    lock (results)
+                    {
+                        var resultsT = queue.GetQueue("static", sequenceNumber).Result;
+                    
+                        if (resultsT.Item1 != long.MinValue && sequenceNumber != resultsT.Item1) {
+                            results = resultsT.Item2;
+                            sequenceNumber = resultsT.Item1;
+                            this.StateHasChanged();
+                        }
+                    }
+                });
+            }), null, 168, 168);
+            this.StateHasChanged();
+        }
     }
     private void Yield(MouseEventArgs eventArgs, QueueItem item) {
         TrackChanged?.Invoke(item);

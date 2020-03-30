@@ -1,0 +1,11 @@
+@code {
+    [Parameter]
+    public int Level { get; set; }    
+}
+
+<table width="100%" class="slim">
+    <tr>
+        <td width="@(Level)%" style="background-color:#6f42c1; padding:0px 0px 0px 0px;">&nbsp;</td>
+        <td width="@(100-Level)%" style="background-color:#eee; padding:0px 0px 0px 0px;"></td>
+    </tr>
+</table>

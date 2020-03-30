@@ -8,7 +8,7 @@ using System;
 namespace goose2s.Services {
     public class QueueService {
         private QueueItem[] _queue = null;
-        private long _sequenceNumber = 0l;
+        private long _sequenceNumber = 0L;
 
         public QueueService()
         {
