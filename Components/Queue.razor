@@ -8,19 +8,26 @@
 @code {
     [CascadingParameter]
     private SpotifyStateProvider SpotifyStateProvider { get; set; }
+    private long sequenceNumber { get; set; }
     private QueueItem[] results { get; set; }
     [Parameter]
     public Action<QueueItem> TrackChanged { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        results = await queue.GetQueue("static");
+        var resultT = await queue.GetQueue("static", -1L);
+        sequenceNumber = resultT.Item1;
+        results = resultT.Item2;
 
         var timer = new Timer(new TimerCallback(async _ =>
         {
             await InvokeAsync(async () => {
-                results = await queue.GetQueue("static");
-                this.StateHasChanged();
+                var resultsT = await queue.GetQueue("static", sequenceNumber);
+                if (resultsT.Item1 != long.MinValue) {
+                    results = resultsT.Item2;
+                    sequenceNumber = resultsT.Item1;
+                    this.StateHasChanged();
+                }
             });
         }), null, 168, 168);
     }

@@ -8,10 +8,12 @@ using System;
 namespace goose2s.Services {
     public class QueueService {
         private QueueItem[] _queue = null;
+        private long _sequenceNumber = 0l;
 
         public QueueService()
         {
             this._queue = new QueueItem[0];
+            this._sequenceNumber = DateTime.UtcNow.Ticks;
         }
 
         public async Task Enqueue(string flock, SpotifyItem track) {
@@ -30,13 +32,17 @@ namespace goose2s.Services {
                 var q =  new List<QueueItem>(_queue);
                 q.Add(entity);
                 this._queue = q.ToArray();
+                _sequenceNumber = DateTime.UtcNow.Ticks;
             }
         }
 
-        public async Task<QueueItem[]> GetQueue(string flock) {
-            return _queue
+        public async Task<(long, QueueItem[])> GetQueue(string flock, long sequenceNumber) {
+            if (_sequenceNumber == sequenceNumber)
+                return (long.MinValue, null);
+
+            return (_sequenceNumber, _queue
                 .Where(qi=> qi.PartitionKey == flock && string.Compare(qi.RowKey, DateTime.UtcNow.Ticks.ToString()) > 0)
-                .ToArray();
+                .ToArray());
            
         } 
     }
