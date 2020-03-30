@@ -1,0 +1,10 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.showBuildDuringDeployPrompt": false,
+    "appService.defaultWebAppToDeploy": "/subscriptions/a280525c-d520-48ab-a1c9-6463fb958790/resourceGroups/andysmetalpubjukebox/providers/Microsoft.Web/sites/andysmetalpubjukebox"
+}

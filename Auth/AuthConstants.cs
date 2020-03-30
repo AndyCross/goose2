@@ -16,11 +16,12 @@ namespace goose2s
         }
 
         public static Dictionary<string,string> GetAuthKeys() {
+            var callbackUri = AppSettings.LoadAppSettings().CallbackUri;
                 return new Dictionary<string,string> {
                     { "response_type", "code" },
                     { "client_id", "149df1959bb94b4e8d324fb611d39445" },
                     { "scope", "user-read-playback-state user-modify-playback-state" },
-                    { "redirect_uri", "https://localhost:5001/auth/callback" },
+                    { "redirect_uri", callbackUri },
                     { "state", generateRandomString(16) }
                 };
         }

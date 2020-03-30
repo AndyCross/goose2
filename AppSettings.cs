@@ -4,6 +4,7 @@ namespace goose2s
  public class AppSettings
  {
      public string StorageConnectionString { get; set; }
+     public string CallbackUri {get;set;}
      public static AppSettings LoadAppSettings()
      {
          IConfigurationRoot configRoot = new ConfigurationBuilder()
