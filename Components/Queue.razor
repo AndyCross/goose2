@@ -65,12 +65,8 @@ else
                 <td>@result.TrackName</td>
                 <td>@result.ArtistName</td>  
                 <td>
-                    <table width="100%" class="slim">
-                        <tr>
-                            <td width="@(result.Popularity)%" style="background-color:#6f42c1"></td>
-                            <td width="@(100-result.Popularity)%" style="background-color:#eee"></td>
-                        </tr>
-                    </table></td>      
+                    <Meter Level="@result.Popularity"/>
+                </td>      
             </tr>
     }
         </tbody>

@@ -55,12 +55,8 @@ else
                 <td>@result.name</td>
                 <td>@result.artists[0].name</td>  
                 <td>
-                    <table width="100%" class="slim">
-                        <tr>
-                            <td width="@(result.popularity)%" style="background-color:#6f42c1"></td>
-                            <td width="@(100-result.popularity)%" style="background-color:#eee"></td>
-                        </tr>
-                    </table></td>      
+                    <Meter Level="@result.popularity"/>
+                </td>      
             </tr>
     }
         </tbody>

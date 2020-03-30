@@ -748,6 +748,85 @@
       },
       {
         "Kind": "Components.Component",
+        "Name": "goose2s.Components.Meter",
+        "AssemblyName": "goose2s",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Meter",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Level",
+            "TypeName": "System.Int32",
+            "IsEnum": false,
+            "IndexerNamePrefix": null,
+            "IndexerTypeName": null,
+            "Documentation": null,
+            "Diagnostics": [],
+            "Metadata": {
+              "Common.PropertyName": "Level"
+            },
+            "BoundAttributeParameters": []
+          }
+        ],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "goose2s.Components.Meter"
+        }
+      },
+      {
+        "Kind": "Components.Component",
+        "Name": "goose2s.Components.Meter",
+        "AssemblyName": "goose2s",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "goose2s.Components.Meter",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Level",
+            "TypeName": "System.Int32",
+            "IsEnum": false,
+            "IndexerNamePrefix": null,
+            "IndexerTypeName": null,
+            "Documentation": null,
+            "Diagnostics": [],
+            "Metadata": {
+              "Common.PropertyName": "Level"
+            },
+            "BoundAttributeParameters": []
+          }
+        ],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "goose2s.Components.Meter",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "Kind": "Components.Component",
         "Name": "goose2s.Components.Queue",
         "AssemblyName": "goose2s",
         "Documentation": null,
@@ -21389,6 +21468,11 @@
     {
       "FilePath": "c:\\src\\goose2s\\Pages\\Index.razor",
       "TargetPath": "Pages\\Index.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\src\\goose2s\\Components\\Meter.razor",
+      "TargetPath": "Components\\Meter.razor",
       "FileKind": "component"
     },
     {

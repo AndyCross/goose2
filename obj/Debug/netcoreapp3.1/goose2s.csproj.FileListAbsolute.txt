@@ -77,3 +77,5 @@ C:\src\goose2s\bin\Debug\netcoreapp3.1\Microsoft.Spatial.dll
 C:\src\goose2s\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\DocumentDB.Spatial.Sql.dll
 C:\src\goose2s\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\Microsoft.Azure.Documents.ServiceInterop.dll
 C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Components\Queue.razor.g.cs
+C:\src\goose2s\obj\Debug\netcoreapp3.1\RazorDeclaration\Components\Meter.razor.g.cs
+C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Components\Meter.razor.g.cs
