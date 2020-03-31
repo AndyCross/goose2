@@ -39,7 +39,8 @@ else
 
     public static QueueItem[] QueueMem = new QueueItem[0];
     public QueueItem[] _queue { get => QueueMem; set => QueueMem = value;}
-    private long _sequenceNumber = 0L;
+    private static long SequenceNumberMem = 0L;
+    public long _sequenceNumber { get => SequenceNumberMem; set => SequenceNumberMem = value; }
 
 
     public void Enqueue(string flock, SpotifyItem track)
