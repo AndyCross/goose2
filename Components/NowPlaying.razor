@@ -1,0 +1,76 @@
+@using goose2s.Services
+@using goose2s.State
+@using System.Threading
+@inject NowPlayingService nowPlayingService
+@inject PlaybackService playbackService
+
+@code {
+    [CascadingParameter]
+    private SpotifyStateProvider SpotifyStateProvider { get; set; }
+    public double SecondsLeft = 0D;
+    public double Position = 0D;
+    public int Percentage = 0;
+    public bool Playing = false;
+    private Models.QueueItem nowPlaying = default(Models.QueueItem);
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            nowPlayingService.TrackChanged = async (Models.QueueItem qi) => {
+                await playbackService.Play(qi.TrackId, SpotifyStateProvider.CurrentContext.access_token);
+                Playing = true;
+            };
+            var timer = new Timer(new TimerCallback(async _ => {
+                    await InvokeAsync(() =>
+                    {
+                        lock (typeof(Models.QueueItem))
+                        {
+                            nowPlaying = nowPlayingService.Tick().Result;
+                            if (nowPlaying != null)
+                            {
+                                Position = (DateTime.UtcNow - new DateTime(nowPlaying.PlayCommenced, DateTimeKind.Utc)).TotalSeconds;
+                                SecondsLeft = (new DateTime(nowPlaying.PlayCommenced, DateTimeKind.Utc).AddMilliseconds(nowPlaying.DurationMs) - DateTime.UtcNow).TotalSeconds;
+                                Percentage = (int)Math.Round((Position/(nowPlaying.DurationMs/1000))*100);
+
+                                if (!Playing)//catchup ketchup catsup 
+                                {
+                                    Task.Run(async () => {
+                                        await playbackService.Play(nowPlaying.TrackId, SpotifyStateProvider.CurrentContext.access_token);
+                                        await playbackService.Seek((int)Position * 1000, SpotifyStateProvider.CurrentContext.access_token);
+                                    });
+                                    Playing = true;
+                                }
+                            }
+                        }
+                        this.StateHasChanged();
+                    });
+                }
+            ), null, 168, 168);
+        }
+    }
+
+    private string Humanize(double secondsLeft) {
+        if (secondsLeft < 60D) {
+            return $"{secondsLeft:0.##} seconds left";
+        }
+         return $"{secondsLeft/60d:0} minutes left";
+    }
+}
+
+<div class="alert alert-secondary mt-4" role="alert">
+    <span class="oi oi-pencil mr-2" aria-hidden="true"></span>
+    <strong>@nowPlaying?.TrackName</strong>
+
+    @if (SecondsLeft > 0) {
+        <span class="text-nowrap">
+            @Humanize(SecondsLeft)
+        </span>
+        @if (!Playing) {
+            <span class="text-nowrap">Nothing playing yet, add something to the queue or wait while we catch up... honk</span>
+        }
+        <goose2s.Components.Meter Level="@Percentage" />
+    }
+    else {
+        <span>Stopped</span>
+    }
+</div>

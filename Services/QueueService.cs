@@ -41,8 +41,21 @@ namespace goose2s.Services {
                 return (long.MinValue, null);
 
             return (_sequenceNumber, _queue
-                .Where(qi=> qi.PartitionKey == flock && string.Compare(qi.RowKey, DateTime.UtcNow.Ticks.ToString()) > 0)
+                .Where(qi=> qi.PartitionKey == flock && string.Compare(qi.RowKey, DateTime.UtcNow.Ticks.ToString()) > 0
+                            && qi.PlayConcluded == 0L)
                 .ToArray());
+           
+        } 
+        
+        public async Task<(long, QueueItem)> GetFirst(string flock, long sequenceNumber) {
+            if (_sequenceNumber == sequenceNumber)
+                return (long.MinValue, null);
+
+            return (_sequenceNumber, _queue
+                .Where(qi=> qi.PartitionKey == flock 
+                                && string.Compare(qi.RowKey, DateTime.UtcNow.Ticks.ToString()) > 0
+                                && (qi.PlayConcluded == 0L || qi.PlayConcluded > DateTime.UtcNow.Ticks))
+                .FirstOrDefault());
            
         } 
     }

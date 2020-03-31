@@ -1,8 +1,10 @@
 ﻿@page "/"
+@using Microsoft.Extensions.Configuration
 @using goose2s.State
 @using goose2s.Services
 @inject NavigationManager navManager
 @inject PlaybackService playback
+@inject IConfiguration config
 
 @code {    
     [CascadingParameter]
@@ -11,6 +13,7 @@
     private string callbackUri = "";
 
     protected override void OnInitialized() {
+        var nstuff = config.GetValue<dynamic>("AppSettings");
         var honker = AuthContants.GetAuthKeys();
         callbackUri = QueryHelpers.AddQueryString("https://accounts.spotify.com/authorize", honker);
     } 
@@ -34,17 +37,14 @@
     <a href="@callbackUri">Join the formation</a>
 }
 else {
-    <h1>Hello, world!</h1>
-    <button class="btn btn-primary" @onclick="Creep">
-        HONK
-    </button>
-    <button class="btn btn-primary" @onclick="Croop">
-        HISS
-    </button>
-}
+    <h1>Welcome</h1>
+
+<goose2s.Components.NowPlaying></goose2s.Components.NowPlaying>
 
 <h1>Queue</h1>
 <goose2s.Components.Queue TrackChanged="Honk"></goose2s.Components.Queue>
 
 <h1>Search</h1>
 <goose2s.Components.Search></goose2s.Components.Search>
+
+}

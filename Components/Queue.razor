@@ -67,7 +67,11 @@ else
         <tbody>            
     @foreach (var result in results)
     {
-            <tr>
+        string playStyle = "";
+        if (result.PlayCommenced > 0L) {
+            playStyle = "border: 1px solid #6f42c1";
+        }
+            <tr style="@playStyle">
                 <td><button @onclick="@((e)=>Yield(e, result))">▶️</button></td>
                 <td><img src="@result.Image" /></td>
                 <td>@result.TrackName</td>

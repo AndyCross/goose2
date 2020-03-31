@@ -62,6 +62,55 @@
       },
       {
         "Kind": "Components.Component",
+        "Name": "goose2s.Components.Search",
+        "AssemblyName": "goose2s",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Search",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "goose2s.Components.Search"
+        }
+      },
+      {
+        "Kind": "Components.Component",
+        "Name": "goose2s.Components.Search",
+        "AssemblyName": "goose2s",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "goose2s.Components.Search",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "goose2s.Components.Search",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "Kind": "Components.Component",
         "Name": "goose2s.Components.Meter",
         "AssemblyName": "goose2s",
         "Documentation": null,
@@ -136,55 +185,6 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "goose2s.Components.Meter",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "Kind": "Components.Component",
-        "Name": "goose2s.Components.Search",
-        "AssemblyName": "goose2s",
-        "Documentation": null,
-        "TagOutputHint": null,
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Search",
-            "ParentTag": null,
-            "TagStructure": 0,
-            "Attributes": [],
-            "Diagnostics": []
-          }
-        ],
-        "BoundAttributes": [],
-        "AllowedChildTags": [],
-        "Diagnostics": [],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "goose2s.Components.Search"
-        }
-      },
-      {
-        "Kind": "Components.Component",
-        "Name": "goose2s.Components.Search",
-        "AssemblyName": "goose2s",
-        "Documentation": null,
-        "TagOutputHint": null,
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "goose2s.Components.Search",
-            "ParentTag": null,
-            "TagStructure": 0,
-            "Attributes": [],
-            "Diagnostics": []
-          }
-        ],
-        "BoundAttributes": [],
-        "AllowedChildTags": [],
-        "Diagnostics": [],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "goose2s.Components.Search",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -266,6 +266,55 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "goose2s.Components.Queue",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "Kind": "Components.Component",
+        "Name": "goose2s.Components.NowPlaying",
+        "AssemblyName": "goose2s",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "NowPlaying",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "goose2s.Components.NowPlaying"
+        }
+      },
+      {
+        "Kind": "Components.Component",
+        "Name": "goose2s.Components.NowPlaying",
+        "AssemblyName": "goose2s",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "goose2s.Components.NowPlaying",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "goose2s.Components.NowPlaying",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -21423,6 +21472,11 @@
     {
       "FilePath": "c:\\src\\goose2s\\Pages\\AuthCallback.razor",
       "TargetPath": "Pages\\AuthCallback.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\src\\goose2s\\Components\\NowPlaying.razor",
+      "TargetPath": "Components\\NowPlaying.razor",
       "FileKind": "component"
     },
     {

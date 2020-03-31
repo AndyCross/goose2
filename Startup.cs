@@ -33,6 +33,7 @@ namespace goose2s
             services.AddSingleton<PlaybackService>();
             services.AddSingleton<SearchService>();
             services.AddSingleton<QueueService>();
+            services.AddSingleton<NowPlayingService>();
             services.AddProtectedBrowserStorage();
         }
 
