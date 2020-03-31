@@ -1,4 +1,4 @@
 {
-    "CallbackUri" : "https://localhost:5001/auth/callback",
+    "CallbackUri" : "https://andysmetalpubjukebox.azurewebsites.net/auth/callback",
     "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=andysmetalpubjukebox;AccountKey=1zRHZIAnUcHysWLUEGZ3Q8OjKeFwhmNOMhQGWW7Ol5xpNXU56vTaxMoXKhdmVYgUoOGUZH3Jna9BToBvwVVVOQ==;TableEndpoint=https://andysmetalpubjukebox.table.cosmos.azure.com:443/;"
 }
