@@ -7,38 +7,12 @@
 
 @code {
     [CascadingParameter]
-    private SpotifyStateProvider SpotifyStateProvider { get; set; }
+    private SpotifyStateProvider spotify { get; set; }
     private long sequenceNumber { get; set; }
-    private QueueItem[] results { get; set; }
+
     [Parameter]
     public Action<QueueItem> TrackChanged { get; set; }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender) 
-        {
-            var resultT = await queue.GetQueue("static", -1L);
-            sequenceNumber = resultT.Item1;
-            results = resultT.Item2;
-
-            var timer = new Timer(new TimerCallback(async _ =>
-            {
-                await InvokeAsync(() => {
-                    lock (results)
-                    {
-                        var resultsT = queue.GetQueue("static", sequenceNumber).Result;
-                    
-                        if (resultsT.Item1 != long.MinValue && sequenceNumber != resultsT.Item1) {
-                            results = resultsT.Item2;
-                            sequenceNumber = resultsT.Item1;
-                            this.StateHasChanged();
-                        }
-                    }
-                });
-            }), null, 168, 168);
-            this.StateHasChanged();
-        }
-    }
     private void Yield(MouseEventArgs eventArgs, QueueItem item) {
         TrackChanged?.Invoke(item);
     }
@@ -47,7 +21,7 @@
 <div>
 </div>
 
-@if (results == null)
+@if (spotify._queue == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -65,7 +39,7 @@ else
             </tr>
         </thead>
         <tbody>            
-    @foreach (var result in results)
+    @foreach (var result in spotify.GetQueue("static", -1L).Result.Item2)
     {
         string playStyle = "";
         if (result.PlayCommenced > 0L) {

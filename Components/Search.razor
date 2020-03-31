@@ -7,19 +7,26 @@
 
 @code {
     [CascadingParameter]
-    private SpotifyStateProvider SpotifyStateProvider { get; set; }
+    private SpotifyStateProvider spotify { get; set; }
     private SearchResults results { get; set; }
     private async Task SearchChanged(ChangeEventArgs e)
     {
-        results = await search.SearchTrack(e.Value.ToString(), SpotifyStateProvider.CurrentContext.access_token);
+        results = await search.SearchTrack(e.Value.ToString(), spotify.CurrentContext.access_token);
     }
-    private async Task Add(MouseEventArgs e, SpotifyItem item) {
-        await queue.Enqueue("static", item);
+    private void Add(MouseEventArgs e, SpotifyItem item) {
+        try {
+            spotify.Enqueue("static", item);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            //why you stoppy
+        }
     }
 }
 
 
-@if (SpotifyStateProvider.CurrentContext == null || !SpotifyStateProvider.CurrentContext.Success)
+@if (spotify.CurrentContext == null || !spotify.CurrentContext.Success)
 {
     <p><em>Not logged in</em></p>
 }
@@ -50,7 +57,7 @@ else
     @foreach (var result in results.tracks.items)
     {
             <tr>
-                <td><button @onclick="@(e => Add(e, result))">+</button></td>
+                <td><button id="@result.id" @onclick="@(e => Add(e, result))">+</button></td>
                 <td><img src="@result.album?.images.OrderBy(i=>i.width).First().url" /></td>
                 <td>@result.name</td>
                 <td>@result.artists[0].name</td>  
