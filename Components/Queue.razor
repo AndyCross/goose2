@@ -40,7 +40,6 @@ else
     <table class="core">
         <thead>
             <tr>
-                <th>...</th>
                 <th>Image</th>
                 <th>Name</th>
                 <th>Artist</th>
@@ -55,7 +54,6 @@ else
             playStyle = "border: 1px solid #6f42c1";
         }
             <tr style="@playStyle">
-                <td><button @onclick="@((e)=>Yield(e, result))">▶️</button></td>
                 <td><img src="@result.Image" /></td>
                 <td>@result.TrackName</td>
                 <td>@result.ArtistName</td>  
