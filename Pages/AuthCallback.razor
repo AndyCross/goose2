@@ -12,7 +12,7 @@
     <div>
         state is @state
     </div>
-    @if (authResponse != null && authResponse.Success) {
+    @if (authResponse != null && !authResponse.Failure) {
     <div>
         Auth Resp is @authResponse.access_token
     </div>
@@ -20,7 +20,7 @@
     Expires in  @authResponse.expires_in
     </div>
     }
-    @if (authResponse != null && !authResponse.Success) {
+    @if (authResponse != null && authResponse.Failure) {
         <div> 
             Buggery refresh fool??? You can only use that damn code one time to honk a flapping token
         </div>

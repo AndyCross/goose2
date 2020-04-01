@@ -25,7 +25,7 @@
 }
 
 
-@if (spotify.CurrentContext == null || !spotify.CurrentContext.Success)
+@if (spotify.CurrentContext == null || spotify.CurrentContext.Failure)
 {
     <p><em>Not logged in</em></p>
 }

@@ -18,14 +18,18 @@
     } 
 }
 
-@if (SpotifyStateProvider.CurrentContext == null || !SpotifyStateProvider.CurrentContext.Success)
+@if (SpotifyStateProvider.CurrentContext == null || SpotifyStateProvider.CurrentContext.Failure)
 {
     <h1>You gotta log in foolz</h1>
     <p>Honk honk!</p>
     <a href="@callbackUri">Join the formation</a>
 }
 else {
-    <h1>Welcome</h1>
+    <pre>───▄▀▀▀▄▄▄▄▄▄▄▀▀▀▄───
+───█▒▒░░░░░░░░░▒▒█───
+────█░░█░░░░░█░░█────
+─▄▄──█░░░▀█▀░░░█──▄▄─
+█░░█─▀▄░░░░░░░▄▀─█░░█</pre>
 
 <goose2s.Components.NowPlaying></goose2s.Components.NowPlaying>
 

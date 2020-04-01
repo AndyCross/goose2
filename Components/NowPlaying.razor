@@ -77,20 +77,21 @@
     }
 }
 
-<div class="alert alert-secondary mt-4" role="alert">
-    <span class="oi oi-pencil mr-2" aria-hidden="true"></span>
-    <strong>@nowPlaying?.TrackName</strong>
-
-    @if (SecondsLeft > 0) {
-        <span class="text-nowrap">
-            @Humanize(SecondsLeft)
-        </span>
-        @if (!RefreshReseekComplete) {
-            <span class="text-nowrap">Nothing playing yet, add something to the queue or wait while we catch up... honk</span>
+<div class="media">
+    <img class="mr-3" src="@nowPlaying?.Image" alt="@nowPlaying?.TrackName">
+    <div class="media-body">        
+        <h5 class="mt-0">@nowPlaying?.TrackName</h5>
+        @if (SecondsLeft > 0) {
+            <span class="text-nowrap">
+                @Humanize(SecondsLeft)
+            </span>
+            @if (!RefreshReseekComplete) {
+                <span class="text-nowrap">Nothing playing yet, add something to the queue or wait while we catch up... honk</span>
+            }
+            <goose2s.Components.Meter Level="@Percentage" />
         }
-        <goose2s.Components.Meter Level="@Percentage" />
-    }
-    else {
-        <span>Stopped</span>
-    }
+        else {
+            <span>Stopped</span>
+        }
+    </div>
 </div>

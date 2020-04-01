@@ -1,7 +1,9 @@
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
+@using Microsoft.Extensions.Configuration
 @using goose2s.Models
 @namespace goose2s.State
 @inject ProtectedSessionStorage ProtectedSessionStore
+@inject IConfiguration config
 
 @if (_hasLoaded)
 {
@@ -21,9 +23,19 @@ else
     public RenderFragment ChildContent { get; set; }
 
     public SpotifyAuthResponse CurrentContext { get; set; }
+    private System.Threading.Timer refreshTimer=null;
 
     public SpotifyStateProvider()
     {
+        refreshTimer = new System.Threading.Timer(new System.Threading.TimerCallback(async _ => {
+            if (CurrentContext != null && !CurrentContext.Failure) {
+                var newToken = await AuthActions.RefreshToken(config, CurrentContext.refresh_token);
+                CurrentContext.access_token = newToken.access_token;
+                CurrentContext.expires_in = newToken.expires_in;
+
+                await SaveChangesAsync();
+            }
+        }));
     }
     protected override async Task OnInitializedAsync()
     {
@@ -34,6 +46,7 @@ else
     public async Task SaveChangesAsync()
     {
         await ProtectedSessionStore.SetAsync("auth", CurrentContext);
+        refreshTimer.Change((CurrentContext.expires_in-10)*1000, -1);
     }
 
     public static QueueItem[] QueueMem = new QueueItem[0];
