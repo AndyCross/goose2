@@ -12,7 +12,7 @@
     public double SecondsLeft = 0D;
     public double Position = 0D;
     public int Percentage = 0;
-    public bool Playing = false;
+    public bool RefreshReseekComplete = false;
     private Models.QueueItem nowPlaying = default(Models.QueueItem);
     public async Task<QueueItem> Tick()
     {
@@ -43,8 +43,16 @@
         return nowPlaying;
     }
     private async Task TrackChanged(QueueItem track) {
-        await playbackService.Play(track.TrackId, spotify.CurrentContext.access_token);
-        Playing = true;
+        if (!RefreshReseekComplete)//catchup ketchup catsup 
+        {
+            var Position = (DateTime.UtcNow - new DateTime(nowPlaying.PlayCommenced, DateTimeKind.Utc)).TotalSeconds;
+            await playbackService.Play(track.TrackId, (int)Position * 1000, spotify.CurrentContext.access_token);
+            
+            RefreshReseekComplete = true;
+        }
+        else {             
+            await playbackService.Play(track.TrackId, spotify.CurrentContext.access_token);
+        }
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     { 
@@ -54,15 +62,7 @@
             Position = (DateTime.UtcNow - new DateTime(nowPlaying.PlayCommenced, DateTimeKind.Utc)).TotalSeconds;
             SecondsLeft = (new DateTime(nowPlaying.PlayCommenced, DateTimeKind.Utc).AddMilliseconds(nowPlaying.DurationMs) - DateTime.UtcNow).TotalSeconds;
             Percentage = (int)Math.Round((Position/(nowPlaying.DurationMs/1000))*100);
-
-            if (!Playing)//catchup ketchup catsup 
-            {
-                var Position = (DateTime.UtcNow - new DateTime(nowPlaying.PlayCommenced, DateTimeKind.Utc)).TotalSeconds;
-                await playbackService.Play(nowPlaying.TrackId, spotify.CurrentContext.access_token);
-                await playbackService.Seek((int)Position * 1000, spotify.CurrentContext.access_token);
-                
-                Playing = true;
-            }
+           
             StateHasChanged();
         }       
     }
@@ -85,7 +85,7 @@
         <span class="text-nowrap">
             @Humanize(SecondsLeft)
         </span>
-        @if (!Playing) {
+        @if (!RefreshReseekComplete) {
             <span class="text-nowrap">Nothing playing yet, add something to the queue or wait while we catch up... honk</span>
         }
         <goose2s.Components.Meter Level="@Percentage" />
