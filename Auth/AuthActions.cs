@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace goose2s 
 {
     public static class AuthActions {
-        public static async Task<SpotifyAuthResponse> GetToken(string authCode) {
-            var authKeys = AuthContants.GetAuthKeys();
+        public static async Task<SpotifyAuthResponse> GetToken(IConfiguration config, string authCode) {
+            var authKeys = AuthContants.GetAuthKeys(config);
             var header = System.Text.Encoding.UTF8.GetBytes($"{authKeys["client_id"]}:{AuthContants.GetSecret()}");
 
             var http = new HttpClient();

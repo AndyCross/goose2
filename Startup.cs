@@ -29,11 +29,8 @@ namespace goose2s
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<TableProvider>();
             services.AddSingleton<PlaybackService>();
             services.AddSingleton<SearchService>();
-            services.AddSingleton<QueueService>();
-            services.AddSingleton<NowPlayingService>();
             services.AddProtectedBrowserStorage();
         }
 

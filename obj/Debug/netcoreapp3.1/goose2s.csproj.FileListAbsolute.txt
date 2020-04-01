@@ -1,7 +1,6 @@
 C:\src\goose2s\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\src\goose2s\bin\Debug\netcoreapp3.1\appsettings.json
 C:\src\goose2s\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
-C:\src\goose2s\bin\Debug\netcoreapp3.1\Settings.json
 C:\src\goose2s\bin\Debug\netcoreapp3.1\goose2s.StaticWebAssets.xml
 C:\src\goose2s\bin\Debug\netcoreapp3.1\goose2s.exe
 C:\src\goose2s\bin\Debug\netcoreapp3.1\goose2s.deps.json

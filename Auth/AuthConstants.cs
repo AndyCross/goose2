@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 
 namespace goose2s
 {
@@ -15,8 +16,8 @@ namespace goose2s
             return text;
         }
 
-        public static Dictionary<string,string> GetAuthKeys() {
-            var callbackUri = AppSettings.LoadAppSettings().CallbackUri;
+        public static Dictionary<string,string> GetAuthKeys(IConfiguration config) {
+            var callbackUri = config["AppSettings:CallbackUri"];
                 return new Dictionary<string,string> {
                     { "response_type", "code" },
                     { "client_id", "149df1959bb94b4e8d324fb611d39445" },

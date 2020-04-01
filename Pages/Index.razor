@@ -13,8 +13,7 @@
     private string callbackUri = "";
 
     protected override void OnInitialized() {
-        var nstuff = config.GetValue<dynamic>("AppSettings");
-        var honker = AuthContants.GetAuthKeys();
+        var honker = AuthContants.GetAuthKeys(config);
         callbackUri = QueryHelpers.AddQueryString("https://accounts.spotify.com/authorize", honker);
     } 
 

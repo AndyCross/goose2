@@ -1,6 +1,8 @@
 @page "/auth/callback"
 @using goose2s.State
+@using Microsoft.Extensions.Configuration
 @inject NavigationManager navManager
+@inject IConfiguration config
 
 <div>Logging in, please wait ... flap</div>
 <div style="display:none">
@@ -45,7 +47,7 @@
             authCode = gosling["code"];
             state = gosling["state"];
             
-            authResponse = await AuthActions.GetToken(authCode);
+            authResponse = await AuthActions.GetToken(config, authCode);
             StateHasChanged();
             authResponse.state = state;
 

@@ -1,9 +1,6 @@
 @using goose2s.Services
 @using goose2s.State
 @using goose2s.Models
-@using System.Threading
-@inject QueueService queue
-
 
 @code {
     [CascadingParameter]
@@ -25,8 +22,8 @@
         {
             sequenceNumber = results.Item1;
             _queue = results.Item2;
-            StateHasChanged();
         }
+        StateHasChanged();
     }
 
 }
