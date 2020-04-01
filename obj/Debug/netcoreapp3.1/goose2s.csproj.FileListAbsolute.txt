@@ -40,7 +40,6 @@ C:\src\goose2s\obj\Debug\netcoreapp3.1\RazorDeclaration\Components\Search.razor.
 C:\src\goose2s\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\AuthCallback.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Counter.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Error.razor.g.cs
-C:\src\goose2s\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\FetchData.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Index.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\MainLayout.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\NavMenu.razor.g.cs
@@ -58,7 +57,6 @@ C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Components\Search.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Pages\AuthCallback.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Pages\Counter.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Pages\Error.razor.g.cs
-C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Pages\FetchData.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Pages\Index.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Shared\MainLayout.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Shared\NavMenu.razor.g.cs
