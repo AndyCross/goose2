@@ -38,7 +38,7 @@ else
 
     public static QueueItem[] QueueMem = new QueueItem[0];
     public QueueItem[] _queue { get => QueueMem; set => QueueMem = value;}
-    public QueueItem[] ActiveQueue { get; set; }
+    public static QueueItem[] ActiveQueue { get; set; }
 
 
     public void Enqueue(string flock, SpotifyItem track)
@@ -61,10 +61,9 @@ else
         q.Add(entity);
         this._queue = q.ToArray();
 
-        this.ActiveQueue = _queue
+        ActiveQueue = _queue
             .Where(qi => qi.PartitionKey == flock
-                            && string.Compare(qi.RowKey, DateTime.UtcNow.Ticks.ToString()) > 0
-                            && (qi.PlayConcluded == 0L || qi.PlayConcluded > DateTime.UtcNow.Ticks))
+                            && qi.PlayConcluded == 0L)
             .ToArray();
         
         this.StateHasChanged();
@@ -77,7 +76,7 @@ else
 
     public async Task<QueueItem[]> GetQueue(string flock)
     {
-        return this.ActiveQueue;
+        return ActiveQueue;
     }
 
     public async Task<QueueItem> GetFirst(string flock)
@@ -85,7 +84,7 @@ else
         if (ActiveQueue == null)
             return null;
 
-        return ActiveQueue.FirstOrDefault();
+        return ActiveQueue.Where(qi => qi.PlayConcluded  == 0L).FirstOrDefault();
 
     }
 }
