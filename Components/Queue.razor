@@ -5,7 +5,6 @@
 @code {
     [CascadingParameter]
     private SpotifyStateProvider spotify { get; set; }
-    private long sequenceNumber { get; set; }
     private QueueItem[] _queue {get;set;}
 
     [Parameter]
@@ -17,12 +16,8 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     { 
-        var results = await spotify.GetQueue("static", sequenceNumber);
-        if (results.Item1 != long.MinValue)
-        {
-            sequenceNumber = results.Item1;
-            _queue = results.Item2;
-        }
+        var results = await spotify.GetQueue("static");
+        _queue = results;
         StateHasChanged();
     }
 
@@ -52,7 +47,10 @@ else
     {
         string playStyle = "";
         if (result.PlayCommenced > 0L) {
-            playStyle = "border: 1px solid #6f42c1";
+            playStyle = "border: 1px solid #6f42c1;";
+        }
+        if (result.PlayConcluded > 0L) {
+            playStyle += "background-color: #eeeeee";
         }
             <tr style="@playStyle">
                 <td><img src="@result.Image" /></td>

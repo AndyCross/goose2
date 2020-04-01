@@ -29,19 +29,17 @@
     }
     private async Task<QueueItem> SetupNextTrack()
     {
-        var currentQueue = await spotify.GetFirst("static", -1);
-        if (currentQueue.Item1 != long.MinValue)
-        {
-            sequenceNumber = currentQueue.Item1;
-            if (currentQueue.Item2 != null && nowPlaying != currentQueue.Item2)
+        var currentQueue = await spotify.GetFirst("static");
+        if (currentQueue != null && nowPlaying != currentQueue)
             {
-                nowPlaying = currentQueue.Item2;
+                nowPlaying = currentQueue;
+                //this is a honking race - nowPlaying is statically across all threads
+                //so only one winner does this
                 if (nowPlaying.PlayCommenced == 0L) {
                     nowPlaying.PlayCommenced = DateTime.UtcNow.Ticks;
-                    await TrackChanged(nowPlaying);
                 }
+                await TrackChanged(nowPlaying);
             }
-        }
         return nowPlaying;
     }
     private async Task TrackChanged(QueueItem track) {

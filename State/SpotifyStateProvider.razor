@@ -24,7 +24,6 @@ else
 
     public SpotifyStateProvider()
     {
-        this._sequenceNumber = DateTime.UtcNow.Ticks;
     }
     protected override async Task OnInitializedAsync()
     {
@@ -39,8 +38,7 @@ else
 
     public static QueueItem[] QueueMem = new QueueItem[0];
     public QueueItem[] _queue { get => QueueMem; set => QueueMem = value;}
-    private static long SequenceNumberMem = 0L;
-    public long _sequenceNumber { get => SequenceNumberMem; set => SequenceNumberMem = value; }
+    public QueueItem[] ActiveQueue { get; set; }
 
 
     public void Enqueue(string flock, SpotifyItem track)
@@ -62,7 +60,12 @@ else
         var q = new List<QueueItem>(_queue);
         q.Add(entity);
         this._queue = q.ToArray();
-        _sequenceNumber = DateTime.UtcNow.Ticks;
+
+        this.ActiveQueue = _queue
+            .Where(qi => qi.PartitionKey == flock
+                            && string.Compare(qi.RowKey, DateTime.UtcNow.Ticks.ToString()) > 0
+                            && (qi.PlayConcluded == 0L || qi.PlayConcluded > DateTime.UtcNow.Ticks))
+            .ToArray();
         
         this.StateHasChanged();
         }
@@ -72,28 +75,17 @@ else
         }
     }
 
-    public async Task<(long, QueueItem[])> GetQueue(string flock, long sequenceNumber)
+    public async Task<QueueItem[]> GetQueue(string flock)
     {
-        if (_sequenceNumber == sequenceNumber)
-            return (long.MinValue, null);
-
-        return (_sequenceNumber, _queue
-            .Where(qi => qi.PartitionKey == flock && string.Compare(qi.RowKey, DateTime.UtcNow.Ticks.ToString()) > 0
-                        && qi.PlayConcluded == 0L)
-            .ToArray());
-
+        return this.ActiveQueue;
     }
 
-    public async Task<(long, QueueItem)> GetFirst(string flock, long sequenceNumber)
+    public async Task<QueueItem> GetFirst(string flock)
     {
-        if (_sequenceNumber == sequenceNumber)
-            return (long.MinValue, null);
+        if (ActiveQueue == null)
+            return null;
 
-        return (_sequenceNumber, _queue
-            .Where(qi => qi.PartitionKey == flock
-                            && string.Compare(qi.RowKey, DateTime.UtcNow.Ticks.ToString()) > 0
-                            && (qi.PlayConcluded == 0L || qi.PlayConcluded > DateTime.UtcNow.Ticks))
-            .FirstOrDefault());
+        return ActiveQueue.FirstOrDefault();
 
     }
 }
