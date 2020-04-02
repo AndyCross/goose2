@@ -34,7 +34,7 @@
     }
     private string GetUrl(Models.UserProfile user) {
         if (user.images.Any()){
-            return user.images.OrderBy(i=>i.height).First().url;
+            return user.images.First().url;
         }
         return "img/user.svg";
     }
