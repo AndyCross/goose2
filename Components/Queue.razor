@@ -21,6 +21,16 @@
         StateHasChanged();
     }
 
+    private void UpVote(MouseEventArgs eventArgs, QueueItem queueItem) {
+        spotify.UpVoteItemInQueue("static", queueItem);
+        StateHasChanged();
+    }
+
+    private void Discard(MouseEventArgs eventArgs, QueueItem queueItem) {
+        spotify.DiscardEnqueued("static", queueItem);
+        StateHasChanged();
+    }
+
 }
 
 <div>
@@ -40,6 +50,7 @@ else
                 <th>Name</th>
                 <th>Artist</th>
                 <th>Enqueued By</th>
+                <th>...</th>
                 <th>Popularity</th>
             </tr>
         </thead>
@@ -58,6 +69,13 @@ else
                 <td>@result.TrackName</td>
                 <td>@result.ArtistName</td>  
                 <td>@result.EnqueuedBy.display_name</td>
+                <td>@if(result.EnqueuedBy.id != spotify.CurrentContext.User.id) {
+                    <button @onclick="((e)=>UpVote(e, result))">👍</button>
+                }
+                else if (result.PlayCommenced == 0L) {
+                    <button @onclick="((e)=>Discard(e, result))">❌</button>
+                }
+                </td>
                 <td>
                     <Meter Level="@result.Popularity"/>
                 </td>      

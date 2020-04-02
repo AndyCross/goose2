@@ -13,8 +13,8 @@
         return string.IsNullOrEmpty(user.display_name) ? "Unknown user" : user.display_name;
     }
 
-    private string Ago(long ticks) {
-        var ago = TimeSpan.FromTicks(DateTime.UtcNow.Ticks - ticks);
+    private string Ago(long lastClientHeartbeatTicks) {
+        var ago = TimeSpan.FromTicks(DateTime.UtcNow.Ticks - lastClientHeartbeatTicks);
         if (ago.TotalMilliseconds < 500) {
             return "***";
         }

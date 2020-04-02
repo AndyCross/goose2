@@ -104,10 +104,7 @@ else
         q.Add(entity);
         this._queue = q.ToArray();
 
-        ActiveQueue = _queue
-            .Where(qi => qi.PartitionKey == flock
-                            && qi.PlayConcluded == 0L)
-            .ToArray();
+        BuildActiveQueue(flock);
         
         this.StateHasChanged();
         }
@@ -117,9 +114,50 @@ else
         }
     }
 
+    public void UpVoteItemInQueue(string flock, QueueItem qi) 
+    {
+        if (_queue.Any(q => q.Equals(qi)))
+        {
+            var upvotable = _queue.First(q => q.Equals(qi));
+            upvotable.Votes++;
+
+            BuildActiveQueue(flock);
+        
+            this.StateHasChanged();
+        }
+    }
+
+    public void DiscardEnqueued(string flock, QueueItem qi) {
+        if (_queue.Any(q => q.Equals(qi)))
+        {
+            var discardable = _queue.First(q => q.Equals(qi));
+            var truncatable = new List<QueueItem>(_queue);
+            if (truncatable.Remove(discardable))
+            {
+                _queue = truncatable.ToArray();
+                BuildActiveQueue(flock);            
+                this.StateHasChanged();
+            }
+        }
+    }
+
+    private void BuildActiveQueue(string flock) {
+        ActiveQueue = _queue
+            .Where(qi => qi.PartitionKey == flock && qi.PlayCommenced > 0L && qi.PlayConcluded == 0L)//started
+            .Union(
+                _queue.Where(qi => qi.PlayCommenced == 0L)
+                    .OrderByDescending(qi => qi.Votes)
+                    .ThenBy(qi => qi.RowKey)
+            )
+            .ToArray();
+    }
+
     public async Task<QueueItem[]> GetQueue(string flock)
     {
-        return ActiveQueue;
+        if (ActiveQueue == null)
+            return null;
+            
+        return ActiveQueue.Where(qi => qi.PlayConcluded == 0L).ToArray();
     }
 
     public async Task<QueueItem> GetFirst(string flock)
