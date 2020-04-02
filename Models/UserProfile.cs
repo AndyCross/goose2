@@ -12,5 +12,6 @@ namespace goose2s.Models {
         public string type { get; set; }
         public string uri { get; set; }
         public long HeartBeat {get;set;}
+        public bool Failure { get; set; }
     }
 }

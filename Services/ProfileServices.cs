@@ -10,8 +10,13 @@ namespace goose2s.Services {
         public async Task<UserProfile> GetUserProfile(string authToken) {
             var http = new HttpClient();
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authToken);
-            var response = await http.GetJsonAsync<UserProfile>($"{SPOTIFY_API_BASE}/me");
-            return response;
+            var response = await http.GetAsync($"{SPOTIFY_API_BASE}/me");
+
+            if (response.IsSuccessStatusCode) {
+                var resString = await response.Content.ReadAsStringAsync();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<UserProfile>(resString);
+            }
+            return new UserProfile { Failure = true };
         } 
 
     }
