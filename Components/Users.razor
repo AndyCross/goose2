@@ -33,7 +33,7 @@
         }
     }
     private string GetUrl(Models.UserProfile user) {
-        if (user.images.Any()){
+        if (!user.Failure && user.images.Any()){
             return user.images.First().url;
         }
         return "img/user.svg";

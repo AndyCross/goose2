@@ -16,6 +16,14 @@ namespace goose2s.Services {
                 var resString = await response.Content.ReadAsStringAsync();
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<UserProfile>(resString);
             }
+            else {
+                System.Console.WriteLine(response.StatusCode);
+                if (response.Content != null) {
+                    var resString = await response.Content.ReadAsStringAsync();
+                    System.Console.WriteLine(resString);
+                }
+
+            }
             return new UserProfile { Failure = true };
         } 
 
