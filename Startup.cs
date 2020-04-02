@@ -31,6 +31,7 @@ namespace goose2s
             services.AddServerSideBlazor();
             services.AddSingleton<PlaybackService>();
             services.AddSingleton<SearchService>();
+            services.AddSingleton<ProfileService>();
             services.AddProtectedBrowserStorage();
         }
 

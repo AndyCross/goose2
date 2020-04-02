@@ -39,6 +39,7 @@ else
                 <th>Image</th>
                 <th>Name</th>
                 <th>Artist</th>
+                <th>Enqueued By</th>
                 <th>Popularity</th>
             </tr>
         </thead>
@@ -56,6 +57,7 @@ else
                 <td><img src="@result.Image" /></td>
                 <td>@result.TrackName</td>
                 <td>@result.ArtistName</td>  
+                <td>@result.EnqueuedBy.display_name</td>
                 <td>
                     <Meter Level="@result.Popularity"/>
                 </td>      

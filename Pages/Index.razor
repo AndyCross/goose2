@@ -18,25 +18,53 @@
     } 
 }
 
-@if (SpotifyStateProvider.CurrentContext == null || SpotifyStateProvider.CurrentContext.Failure)
+@if (SpotifyStateProvider.CurrentContext == null || SpotifyStateProvider.CurrentContext.Auth.Failure)
 {
     <h1>You gotta log in foolz</h1>
     <p>Honk honk!</p>
     <a href="@callbackUri">Join the formation</a>
+    <div>
+        We require that Spotify give us the following rights on your account:
+
+        View your Spotify account data
+        The type of Spotify subscription you have, your account country and your settings for explicit content filtering
+        Your name and username, your profile picture, how many followers you have on Spotify and your public playlists
+
+        [we use this for showing you a warning if you're not on a premium account.]
+
+View your activity on Spotify
+The content you are playing and Spotify Connect devices information
+
+[What device are you playing on - maybe remove]
+
+Take actions in Spotify on your behalf
+Control Spotify on your devices
+
+[Honk honk!]
+
+    </div>
 }
-else {
+else 
+{
     <pre>───▄▀▀▀▄▄▄▄▄▄▄▀▀▀▄───
 ───█▒▒░░░░░░░░░▒▒█───
 ────█░░█░░░░░█░░█────
 ─▄▄──█░░░▀█▀░░░█──▄▄─
 █░░█─▀▄░░░░░░░▄▀─█░░█</pre>
 
-<goose2s.Components.NowPlaying></goose2s.Components.NowPlaying>
+<div class="row justify-content-start">
+    <div class="col col-10">
+        <goose2s.Components.NowPlaying></goose2s.Components.NowPlaying>
 
-<h1>Queue</h1>
-<goose2s.Components.Queue></goose2s.Components.Queue>
+        <h1>Queue</h1>
+        <goose2s.Components.Queue></goose2s.Components.Queue>
 
-<h1>Search</h1>
-<goose2s.Components.Search></goose2s.Components.Search>
-
+        <h1>Search</h1>
+        <goose2s.Components.Search></goose2s.Components.Search>
+    </div>
+    <div class="col col-lg-2">
+        <h1>Flock</h1>
+        <goose2s.Components.Users></goose2s.Components.Users>
+    </div>
+</div>
 }

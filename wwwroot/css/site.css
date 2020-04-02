@@ -46,6 +46,9 @@ app {
     text-overflow: ellipsis;
 }
 
+table.core {
+    width:100%;
+}
 table.slim thead tr th, table.slim tbody tr td {
     padding: 0px !important;
 }

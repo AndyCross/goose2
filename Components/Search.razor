@@ -10,7 +10,7 @@
     private SearchResults results { get; set; }
     private async Task SearchChanged(ChangeEventArgs e)
     {
-        results = await search.SearchTrack(e.Value.ToString(), spotify.CurrentContext.access_token);
+        results = await search.SearchTrack(e.Value.ToString(), spotify.CurrentContext.Auth.access_token);
     }
     private void Add(MouseEventArgs e, SpotifyItem item) {
         try {
@@ -25,7 +25,7 @@
 }
 
 
-@if (spotify.CurrentContext == null || spotify.CurrentContext.Failure)
+@if (spotify.CurrentContext == null || spotify.CurrentContext.Auth.Failure)
 {
     <p><em>Not logged in</em></p>
 }

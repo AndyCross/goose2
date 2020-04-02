@@ -21,7 +21,7 @@ namespace goose2s
                 return new Dictionary<string,string> {
                     { "response_type", "code" },
                     { "client_id", "149df1959bb94b4e8d324fb611d39445" },
-                    { "scope", "user-read-playback-state user-modify-playback-state" },
+                    { "scope", "user-read-playback-state user-modify-playback-state user-read-private" },
                     { "redirect_uri", callbackUri },
                     { "state", generateRandomString(16) }
                 };

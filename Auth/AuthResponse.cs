@@ -1,4 +1,5 @@
-namespace goose2s {
+namespace goose2s
+{
     public class SpotifyAuthResponse
     {
         public SpotifyAuthResponse()

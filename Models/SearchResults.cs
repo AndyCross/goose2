@@ -1,4 +1,5 @@
-namespace goose2s.Models {
+namespace goose2s.Models
+{
     public class SearchResults
     {
         public Tracks tracks { get; set; }
@@ -66,13 +67,6 @@ namespace goose2s.Models {
         public string name { get; set; }
         public string type { get; set; }
         public string uri { get; set; }
-    }
-
-    public class Image
-    {
-        public int height { get; set; }
-        public string url { get; set; }
-        public int width { get; set; }
     }
 
     public class External_Ids

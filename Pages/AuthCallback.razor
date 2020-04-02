@@ -3,6 +3,8 @@
 @using Microsoft.Extensions.Configuration
 @inject NavigationManager navManager
 @inject IConfiguration config
+@using goose2s.Services
+@inject ProfileService profile
 
 <div>Logging in, please wait ... flap</div>
 <div style="display:none">
@@ -51,8 +53,15 @@
             StateHasChanged();
             authResponse.state = state;
 
-            SpotifyStateProvider.CurrentContext = authResponse;
+            var userProfile = await profile.GetUserProfile(authResponse.access_token);
+
+            SpotifyStateProvider.CurrentContext = new SpotifyContext {
+                Auth = authResponse,
+                User = userProfile
+            };
             await SpotifyStateProvider.SaveChangesAsync();
+
+            SpotifyStateProvider.Login();
 
             navManager.NavigateTo("/");
         }

@@ -1,0 +1,54 @@
+@using goose2s.State
+
+
+@code {
+    [CascadingParameter]
+    private SpotifyStateProvider spotify { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        spotify.HeartBeat();
+    }
+
+    private string GetDisplayName(Models.UserProfile user) {
+        return string.IsNullOrEmpty(user.display_name) ? "Unknown user" : user.display_name;
+    }
+
+    private string Ago(long ticks) {
+        var ago = TimeSpan.FromTicks(DateTime.UtcNow.Ticks - ticks);
+        if (ago.TotalMilliseconds < 500) {
+            return "***";
+        }
+        else if (ago.TotalMilliseconds < 2000) {
+            return "**";
+        }
+        else if (ago.TotalMilliseconds < 10000) {
+            return "*";
+        }
+
+        else if (ago.TotalMilliseconds < 30000) {
+            return "Worried";
+        }
+        else {
+            return "Disconnected";
+        }
+    }
+    private string GetUrl(Models.UserProfile user) {
+        if (user.images.Any()){
+            return user.images.OrderBy(i=>i.height).First().url;
+        }
+        return "img/user.svg";
+    }
+}
+
+<ul class="list-unstyled">
+    @foreach (var user in SpotifyStateProvider.ActiveUsers)
+    {
+    <li class="media">
+        <img class="mr-3" src="@GetUrl(user)" width="20px" alt="@user.display_name">
+        <div class="media-body">
+        <h5 class="mt-0 mb-1">@user.display_name</h5>
+        Connection quality @Ago(user.HeartBeat)
+        </div>
+    </li>
+    }
+</ul>

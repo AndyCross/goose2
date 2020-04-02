@@ -23,5 +23,6 @@ namespace goose2s.Models {
         public long PlayCommenced { get; set; }
         public long PlayConcluded { get; set; }
         public int DurationMs { get; set; }
+        public UserProfile EnqueuedBy { get; set; }
     }
 }

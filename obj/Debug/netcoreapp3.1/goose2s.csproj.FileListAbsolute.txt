@@ -78,3 +78,5 @@ C:\src\goose2s\obj\Debug\netcoreapp3.1\goose2s.dll
 C:\src\goose2s\obj\Debug\netcoreapp3.1\goose2s.pdb
 C:\src\goose2s\obj\Debug\netcoreapp3.1\RazorDeclaration\Components\NowPlaying.razor.g.cs
 C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Components\NowPlaying.razor.g.cs
+C:\src\goose2s\obj\Debug\netcoreapp3.1\RazorDeclaration\Components\Users.razor.g.cs
+C:\src\goose2s\obj\Debug\netcoreapp3.1\Razor\Components\Users.razor.g.cs
