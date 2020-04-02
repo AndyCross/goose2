@@ -160,55 +160,6 @@
       },
       {
         "Kind": "Components.Component",
-        "Name": "goose2s.Pages.Index",
-        "AssemblyName": "goose2s",
-        "Documentation": null,
-        "TagOutputHint": null,
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Index",
-            "ParentTag": null,
-            "TagStructure": 0,
-            "Attributes": [],
-            "Diagnostics": []
-          }
-        ],
-        "BoundAttributes": [],
-        "AllowedChildTags": [],
-        "Diagnostics": [],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "goose2s.Pages.Index"
-        }
-      },
-      {
-        "Kind": "Components.Component",
-        "Name": "goose2s.Pages.Index",
-        "AssemblyName": "goose2s",
-        "Documentation": null,
-        "TagOutputHint": null,
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "goose2s.Pages.Index",
-            "ParentTag": null,
-            "TagStructure": 0,
-            "Attributes": [],
-            "Diagnostics": []
-          }
-        ],
-        "BoundAttributes": [],
-        "AllowedChildTags": [],
-        "Diagnostics": [],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "goose2s.Pages.Index",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "Kind": "Components.Component",
         "Name": "goose2s.Pages.AuthCallback",
         "AssemblyName": "goose2s",
         "Documentation": null,
@@ -253,6 +204,55 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "goose2s.Pages.AuthCallback",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "Kind": "Components.Component",
+        "Name": "goose2s.Pages.Index",
+        "AssemblyName": "goose2s",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Index",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "goose2s.Pages.Index"
+        }
+      },
+      {
+        "Kind": "Components.Component",
+        "Name": "goose2s.Pages.Index",
+        "AssemblyName": "goose2s",
+        "Documentation": null,
+        "TagOutputHint": null,
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "goose2s.Pages.Index",
+            "ParentTag": null,
+            "TagStructure": 0,
+            "Attributes": [],
+            "Diagnostics": []
+          }
+        ],
+        "BoundAttributes": [],
+        "AllowedChildTags": [],
+        "Diagnostics": [],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "goose2s.Pages.Index",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -597,14 +597,14 @@
       },
       {
         "Kind": "Components.Component",
-        "Name": "goose2s.Components.Search",
+        "Name": "goose2s.Components.Users",
         "AssemblyName": "goose2s",
         "Documentation": null,
         "TagOutputHint": null,
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Search",
+            "TagName": "Users",
             "ParentTag": null,
             "TagStructure": 0,
             "Attributes": [],
@@ -616,19 +616,19 @@
         "Diagnostics": [],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "goose2s.Components.Search"
+          "Common.TypeName": "goose2s.Components.Users"
         }
       },
       {
         "Kind": "Components.Component",
-        "Name": "goose2s.Components.Search",
+        "Name": "goose2s.Components.Users",
         "AssemblyName": "goose2s",
         "Documentation": null,
         "TagOutputHint": null,
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "goose2s.Components.Search",
+            "TagName": "goose2s.Components.Users",
             "ParentTag": null,
             "TagStructure": 0,
             "Attributes": [],
@@ -640,7 +640,7 @@
         "Diagnostics": [],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "goose2s.Components.Search",
+          "Common.TypeName": "goose2s.Components.Users",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -776,14 +776,14 @@
       },
       {
         "Kind": "Components.Component",
-        "Name": "goose2s.Components.Users",
+        "Name": "goose2s.Components.Search",
         "AssemblyName": "goose2s",
         "Documentation": null,
         "TagOutputHint": null,
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Users",
+            "TagName": "Search",
             "ParentTag": null,
             "TagStructure": 0,
             "Attributes": [],
@@ -795,19 +795,19 @@
         "Diagnostics": [],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "goose2s.Components.Users"
+          "Common.TypeName": "goose2s.Components.Search"
         }
       },
       {
         "Kind": "Components.Component",
-        "Name": "goose2s.Components.Users",
+        "Name": "goose2s.Components.Search",
         "AssemblyName": "goose2s",
         "Documentation": null,
         "TagOutputHint": null,
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "goose2s.Components.Users",
+            "TagName": "goose2s.Components.Search",
             "ParentTag": null,
             "TagStructure": 0,
             "Attributes": [],
@@ -819,7 +819,7 @@
         "Diagnostics": [],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "goose2s.Components.Users",
+          "Common.TypeName": "goose2s.Components.Search",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
