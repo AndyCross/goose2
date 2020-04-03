@@ -66,11 +66,15 @@ else
 
     public void Login() {
         var aul = new List<UserProfile>(ActiveUsers);
-        CurrentContext.User.HeartBeat = DateTime.UtcNow.Ticks;
-        aul.Add(CurrentContext.User);
+        if (!aul.Any(u => u.id == CurrentContext.User.id))
+        {
+            CurrentContext.User.HeartBeat = DateTime.UtcNow.Ticks;
+            aul.Add(CurrentContext.User);
+            
 
-        ActiveUsers = aul.ToArray();
-        this.StateHasChanged();
+            ActiveUsers = aul.ToArray();
+            this.StateHasChanged();
+        }
     }
     public void HeartBeat() {
         if (CurrentContext != null && CurrentContext.User != null) {
@@ -156,7 +160,7 @@ else
     {
         if (ActiveQueue == null)
             return null;
-            
+
         return ActiveQueue.Where(qi => qi.PlayConcluded == 0L).ToArray();
     }
 
