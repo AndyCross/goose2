@@ -22,8 +22,6 @@ jobs:
         
     - name: Version Stamp Config
       uses: falnyr/replace-env-vars-action@master
-      env:
-        VERSION: $GITHUB_RUN_ID	
       with:
         filename: appsettings.json
 
