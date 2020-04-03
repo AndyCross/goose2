@@ -11,8 +11,20 @@ namespace goose2s.Services {
         public async Task<SearchResults> SearchTrack(string term, string authToken) {
             var http = new HttpClient();
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authToken);
-            var response = await http.GetJsonAsync<SearchResults>($"{SPOTIFY_API_BASE}/search?q={term}&type=track&limit=10");
-            return response;
+            var response = await http.GetAsync($"{SPOTIFY_API_BASE}/search?q={term}&type=track&limit=10");
+            if (response.IsSuccessStatusCode) {
+                var resString = await response.Content.ReadAsStringAsync();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<SearchResults>(resString);
+            }
+            else {
+                System.Console.WriteLine(response.StatusCode);
+                if (response.Content != null) {
+                    var resString = await response.Content.ReadAsStringAsync();
+                    System.Console.WriteLine(resString);
+                }
+
+            }
+            return new SearchResults { Failure = true };
         } 
 
         public async Task Seek(int ms, string authToken) {
