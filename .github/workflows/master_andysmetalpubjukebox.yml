@@ -25,7 +25,7 @@ jobs:
       env:
         VERSION: $GITHUB_RUN_ID	
       with:
-        filename: /appsettings.json
+        filename: appsettings.json
 
     - name: Build with dotnet
       run: dotnet build --configuration Release
