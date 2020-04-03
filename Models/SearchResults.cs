@@ -3,6 +3,7 @@ namespace goose2s.Models
     public class SearchResults
     {
         public Tracks tracks { get; set; }
+        public bool Failure { get; internal set; }
     }
 
     public class Tracks
