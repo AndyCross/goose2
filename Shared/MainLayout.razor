@@ -1,4 +1,16 @@
 ﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.ProtectedBrowserStorage
+@using goose2s.State
+@inject ProtectedSessionStorage ProtectedSessionStore
+@inject NavigationManager nav
+
+@code {
+    [CascadingParameter]
+    private SpotifyStateProvider SpotifyStateProvider { get; set; }
+    private async Task ClearSession() {
+        await SpotifyStateProvider.Logout();
+    }
+}
 
 <div class="sidebar">
     <NavMenu />
@@ -7,6 +19,7 @@
 <div class="main">
     <div class="top-row px-4">
         <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        <button @onclick="ClearSession" style="margin-left:20px">🚨</button>
     </div>
 
     <div class="content px-4">

@@ -24,7 +24,6 @@ else
 
     public SpotifyContext CurrentContext { get; set; }
     private bool RefreshingAccessToken {get;set;}
-    private System.Threading.Timer refreshTimer=null;
 
     public SpotifyStateProvider()
     {
@@ -75,6 +74,13 @@ else
             ActiveUsers = aul.ToArray();
             this.StateHasChanged();
         }
+    }
+
+    public async Task Logout() 
+    {        
+        await ProtectedSessionStore.DeleteAsync("auth");
+        CurrentContext = null;
+        StateHasChanged();
     }
     public void HeartBeat() {
         if (CurrentContext != null && CurrentContext.User != null) {
