@@ -92,6 +92,10 @@ else
                 // not logged in or just honked
             }
         }
+        var aul = new List<UserProfile>(ActiveUsers);
+        if (!aul.Any(u => u.HeartBeat < DateTime.UtcNow.AddMinutes(-30d).Ticks)) {
+            ActiveUser = aul.Where(u => u.HeartBeat >= DateTime.UtcNow.AddMinutes(-30d).Ticks).ToArray();
+        }
     }
     public void Enqueue(string flock, SpotifyItem track)
     {
