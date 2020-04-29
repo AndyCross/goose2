@@ -1,0 +1,91 @@
+{
+    "$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceName": {
+            "type": "string"
+        },
+        "Version" : {
+            "type": "string"            
+        }
+    },
+    "variables": {
+        "appName": "[parameters('resourceName')]",
+        "planName": "[concat(parameters('resourceName'), 'plan')]",
+        "repoURL": "https://github.com/JimPaine/goose2.git"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('storageAccountName')]",
+            "apiVersion": "2018-07-01",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage"
+        },       
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2016-09-01",
+            "name": "[variables('planName')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "P1v2",
+                "tier": "PremiumV2",
+                "size": "P1v2",
+                "family": "Pv2",
+                "capacity": 1
+            },
+            "properties": {
+                "name": "[variables('planName')]"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "name": "[variables('appName')]",
+            "apiVersion": "2016-08-01",
+            "location": "[resourceGroup().location]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "kind": "app",
+            "properties": {
+                "name": "[variables('appName')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('planName'))]"              
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', variables('planName'))]",
+            ],
+            "resources": [
+                {
+                    "apiVersion": "2015-08-01",
+                    "name": "web",
+                    "type": "sourcecontrols",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', variables('appName'))]"
+                    ],
+                    "properties": {
+                        "RepoUrl": "[variables('repoURL')]",
+                        "branch": "master",
+                        "IsManualIntegration": true
+                    }
+                }
+            ]
+        },
+        {
+            "type": "config",
+            "name": "appSettings",
+            "apiVersion": "2016-08-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('appName'))]"
+            ],
+            "properties": {
+                "AppSettings:CallBackUri": "[concat(reference(resourceId('Microsoft.Web/Sites', variables('appName'))).URL, '/auth/callback')]",
+                "AppSettings:Version": ""
+            }
+        }
+    ]
+}
