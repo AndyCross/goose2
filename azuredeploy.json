@@ -71,7 +71,7 @@
                 "[resourceId('Microsoft.Web/sites', variables('appName'))]"
             ],
             "properties": {
-                "AppSettings:CallBackUri": "[concat(reference(resourceId('Microsoft.Web/Sites', variables('appName'))).URL, '/auth/callback')]",
+                "AppSettings:CallBackUri": "[concat(reference(resourceId('Microsoft.Web/Sites', variables('appName'))).defaultHostName, '/auth/callback')]",
                 "AppSettings:Version": ""
             }
         }
