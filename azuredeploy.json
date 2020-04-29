@@ -77,7 +77,7 @@
         {
             "type": "config",
             "name": "appsettings",
-            "apiVersion": "2015-08-01",
+            "apiVersion": "2016-08-01",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('appName'))]"
             ],
