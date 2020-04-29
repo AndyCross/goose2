@@ -10,7 +10,7 @@ namespace goose2s
     public static class AuthActions {
         public static async Task<SpotifyAuthResponse> GetToken(IConfiguration config, string authCode) {
             var authKeys = AuthContants.GetAuthKeys(config);
-            var header = System.Text.Encoding.UTF8.GetBytes($"{authKeys["client_id"]}:{AuthContants.GetSecret()}");
+            var header = System.Text.Encoding.UTF8.GetBytes($"{authKeys["client_id"]}:{authKeys["client_secret"]}");
 
             var http = new HttpClient();
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(header));
@@ -31,7 +31,7 @@ namespace goose2s
 
         public static async Task<SpotifyAuthResponse> RefreshToken(IConfiguration config, string refresh_token) {
             var authKeys = AuthContants.GetAuthKeys(config);
-            var header = System.Text.Encoding.UTF8.GetBytes($"{authKeys["client_id"]}:{AuthContants.GetSecret()}");
+            var header = System.Text.Encoding.UTF8.GetBytes($"{authKeys["client_id"]}:{authKeys["client_secret"]}");
 
             var http = new HttpClient();
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(header));

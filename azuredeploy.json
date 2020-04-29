@@ -2,16 +2,22 @@
     "$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "resourceName": {
+        "ResourceName": {
             "type": "string"
         },
         "Version" : {
             "type": "string"            
+        },
+        "SpotifyClientId": {
+            "type": "string"
+        },
+        "SpotifyClientSecret": {
+            "type": "string"
         }
     },
     "variables": {
-        "appName": "[parameters('resourceName')]",
-        "planName": "[concat(parameters('resourceName'), 'plan')]",
+        "appName": "[parameters('ResourceName')]",
+        "planName": "[concat(parameters('ResourceName'), 'plan')]",
         "repoURL": "https://github.com/JimPaine/goose2.git"
     },
     "resources": [     
@@ -71,8 +77,10 @@
                 "[resourceId('Microsoft.Web/sites', variables('appName'))]"
             ],
             "properties": {
-                "AppSettings:CallBackUri": "[concat(reference(resourceId('Microsoft.Web/Sites', variables('appName'))).defaultHostName, '/auth/callback')]",
-                "AppSettings:Version": ""
+                "AppSettings:CallBackUri": "[concat('https://', reference(resourceId('Microsoft.Web/Sites', variables('appName'))).defaultHostName, '/auth/callback')]",
+                "AppSettings:Version": "[parameters('Version')]",
+                "AppSettings:SpotifyClientId": "[parameters('SpotifyClientId')]",
+                "AppSettings:SpotifyClientSecret": "[parameters('SpotifyClientSecret')]"
             }
         }
     ]
