@@ -45,7 +45,7 @@
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('planName'))]"              
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('planName'))]",
+                "[resourceId('Microsoft.Web/serverfarms', variables('planName'))]"
             ],
             "resources": [
                 {
@@ -68,7 +68,7 @@
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2018-11-01",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('appName'))]"
+                "[resourceId('Microsoft.Web/sites', variables('appName'))]"
             ],
             "properties": {
                 "AppSettings:CallBackUri": "[concat(reference(resourceId('Microsoft.Web/Sites', variables('appName'))).URL, '/auth/callback')]",
