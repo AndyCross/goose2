@@ -6,7 +6,7 @@
 
 | Name | Example Value | Comment |
 | ---- | ------------- | ------- |
-| resourceName | goose2JukeBox | currently needs to be globally unique |
-| version | 1 | need to do something with this |
+| ResourceName | goose2JukeBox | currently needs to be globally unique |
+| Version | 1 | need to do something with this |
 | SpotifyClientId | hhsdofnsdfpojdfpojds | |
 | SpotifyClientSecret | sdfdsfpijfasijdf | It is secret |
