@@ -14,18 +14,7 @@
         "planName": "[concat(parameters('resourceName'), 'plan')]",
         "repoURL": "https://github.com/JimPaine/goose2.git"
     },
-    "resources": [
-        {
-            "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('storageAccountName')]",
-            "apiVersion": "2018-07-01",
-            "location": "[resourceGroup().location]",
-            "sku": {
-                "name": "Standard_LRS",
-                "tier": "Standard"
-            },
-            "kind": "Storage"
-        },       
+    "resources": [     
         {
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2016-09-01",
