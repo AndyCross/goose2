@@ -1,6 +1,6 @@
 # goose2
 
-![Build and deploy - andysmetalpubjukebox](/workflows/Build%20and%20deploy%20ASP.Net%20Core%20app%20to%20Azure%20Web%20App%20-%20andysmetalpubjukebox/badge.svg)
+![Build and deploy - andysmetalpubjukebox](../../workflows/Build%20and%20deploy%20ASP.Net%20Core%20app%20to%20Azure%20Web%20App%20-%20andysmetalpubjukebox/badge.svg)
 
 ## Deploy
 
