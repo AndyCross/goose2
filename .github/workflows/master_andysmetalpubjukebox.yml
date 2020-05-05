@@ -37,7 +37,7 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v1
       with:
-        app-name: 'andysmetalpubjukebox'
+        app-name: ${{secrets.AzureAppService_AppName}}
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_5516bf19ce5d4390acdb34f40085f80c }}
         package: ${{env.DOTNET_ROOT}}/myapp 
