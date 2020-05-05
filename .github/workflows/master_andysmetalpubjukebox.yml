@@ -24,7 +24,11 @@ jobs:
       uses: falnyr/replace-env-vars-action@master
       with:
         filename: appsettings.json
-
+      env: 
+        callbackuri: ${{secrets.CallBackUri}}
+        spotifyclientid: ${{secrets.SpotifyClientId}}
+        spotifyclientsecret: ${{secrets.SpotifyClientSecret}}
+                 
     - name: Build with dotnet
       run: dotnet build --configuration Release
 
@@ -34,7 +38,7 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v1
       with:
-        app-name: 'andysmetalpubjukebox'
+        app-name: ${{secrets.AzureAppService_AppName}}
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_5516bf19ce5d4390acdb34f40085f80c }}
         package: ${{env.DOTNET_ROOT}}/myapp 

@@ -18,17 +18,16 @@ namespace goose2s
 
         public static Dictionary<string,string> GetAuthKeys(IConfiguration config) {
             var callbackUri = config["AppSettings:CallbackUri"];
+            var clientId = config["AppSettings:SpotifyClientId"];
+            var clientSecret = config["AppSettings:SpotifyClientSecret"];
                 return new Dictionary<string,string> {
                     { "response_type", "code" },
-                    { "client_id", "149df1959bb94b4e8d324fb611d39445" },
+                    { "client_id", clientId },
+                    { "client_secret", clientSecret },
                     { "scope", "user-read-playback-state user-modify-playback-state user-read-private" },
                     { "redirect_uri", callbackUri },
                     { "state", generateRandomString(16) }
                 };
-        }
-
-        public static string GetSecret() {
-            return "8d1af8b6685a40f0a7c60fe7dbabcd64";
         }
     }
 }

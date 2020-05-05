@@ -1,0 +1,87 @@
+{
+    "$schema": "http://schemas.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "ResourceName": {
+            "type": "string"
+        },
+        "Version" : {
+            "type": "string"            
+        },
+        "SpotifyClientId": {
+            "type": "string"
+        },
+        "SpotifyClientSecret": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "appName": "[parameters('ResourceName')]",
+        "planName": "[concat(parameters('ResourceName'), 'plan')]",
+        "repoURL": "https://github.com/JimPaine/goose2.git"
+    },
+    "resources": [     
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2016-09-01",
+            "name": "[variables('planName')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "P1v2",
+                "tier": "PremiumV2",
+                "size": "P1v2",
+                "family": "Pv2",
+                "capacity": 1
+            },
+            "properties": {
+                "name": "[variables('planName')]"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "name": "[variables('appName')]",
+            "apiVersion": "2016-08-01",
+            "location": "[resourceGroup().location]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "kind": "app",
+            "properties": {
+                "name": "[variables('appName')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('planName'))]"              
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', variables('planName'))]"
+            ],
+            "resources": [
+                {
+                    "apiVersion": "2015-08-01",
+                    "name": "web",
+                    "type": "sourcecontrols",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', variables('appName'))]"
+                    ],
+                    "properties": {
+                        "RepoUrl": "[variables('repoURL')]",
+                        "branch": "master",
+                        "IsManualIntegration": true
+                    }
+                }
+            ]
+        },
+        {            
+            "name": "[concat(variables('appName'), '/appsettings')]",
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2019-08-01",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', variables('appName'))]"
+            ],
+            "properties": {
+                "AppSettings:CallBackUri": "[concat('https://', reference(resourceId('Microsoft.Web/Sites', variables('appName'))).defaultHostName, '/auth/callback')]",
+                "AppSettings:Version": "[parameters('Version')]",
+                "AppSettings:SpotifyClientId": "[parameters('SpotifyClientId')]",
+                "AppSettings:SpotifyClientSecret": "[parameters('SpotifyClientSecret')]"
+            }
+        }
+    ]
+}
