@@ -1,8 +1,12 @@
 # goose2
 
+![Build and deploy - andysmetalpubjukebox](https://github.com/JimPaine/goose2/workflows/Build%20and%20deploy%20ASP.Net%20Core%20app%20to%20Azure%20Web%20App%20-%20andysmetalpubjukebox/badge.svg)
+
+## Deploy
+
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 
-## Parameters
+### Parameters
 
 | Name | Example Value | Comment |
 | ---- | ------------- | ------- |
