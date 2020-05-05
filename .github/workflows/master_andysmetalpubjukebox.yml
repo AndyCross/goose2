@@ -23,11 +23,12 @@ jobs:
     - name: Version Stamp Config
       uses: falnyr/replace-env-vars-action@master
       with:
+        filename: appsettings.json
+      env: 
         callbackuri: ${{secrets.CallBackUri}}
         spotifyclientid: ${{secrets.SpotifyClientId}}
         spotifyclientsecret: ${{secrets.SpotifyClientSecret}}
-        filename: appsettings.json
-          
+                 
     - name: Build with dotnet
       run: dotnet build --configuration Release
 
